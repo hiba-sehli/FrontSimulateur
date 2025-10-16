@@ -1,0 +1,248 @@
+/** =====================
+      Cyberpunk Form Components
+========================== **/
+
+// Cyberpunk form variables
+$cyber-input-bg: rgba(#0d0221, 0.7);
+$cyber-input-border: 1px solid rgba(#05d9e8, 0.4);
+$cyber-input-glow: 0 0 10px rgba(#ff2a6d, 0.3);
+$cyber-input-focus-glow: 0 0 15px rgba(#05d9e8, 0.6);
+$cyber-label-color: #05d9e8;
+$cyber-placeholder-color: rgba(#00f0ff, 0.5);
+
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    color: $cyber-label-color;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba($cyber-label-color, 0.3);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  // Cyberpunk input field effect
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #ff2a6d, #05d9e8);
+    transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  &:focus-within::after {
+    width: 100%;
+  }
+}
+
+.custom-select,
+.form-control {
+  background: $cyber-input-bg;
+  border: $cyber-input-border;
+  border-radius: 0;
+  padding: 12px 20px;
+  font-size: 14px;
+  color: #00f0ff;
+  box-shadow: $cyber-input-glow;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+
+  &:focus {
+    background: rgba(#0d0221, 0.9);
+    border-color: #05d9e8;
+    box-shadow: $cyber-input-focus-glow;
+    color: #fff;
+    outline: none;
+  }
+
+  &::-moz-placeholder {
+    color: $cyber-placeholder-color;
+    opacity: 1;
+  }
+
+  &:-ms-input-placeholder {
+    color: $cyber-placeholder-color;
+  }
+
+  &::-webkit-input-placeholder {
+    color: $cyber-placeholder-color;
+  }
+}
+
+// Cyberpunk input group
+.input-group {
+  background: transparent;
+  position: relative;
+  box-shadow: $cyber-input-glow;
+
+  .input-group-text {
+    background: rgba(#1a1b41, 0.7);
+    border: $cyber-input-border;
+    border-right: none;
+    color: #ff2a6d;
+    padding: 0 15px;
+    transition: all 0.3s ease;
+
+    i {
+      font-size: 20px;
+      filter: drop-shadow(0 0 5px #ff2a6d);
+    }
+  }
+
+  .form-control {
+    border-left: none;
+    &:focus {
+      & + .input-group-text {
+        background: rgba(#ff2a6d, 0.2);
+        color: #fff;
+      }
+    }
+  }
+
+  &:focus-within {
+    box-shadow: $cyber-input-focus-glow;
+    
+    .input-group-text {
+      background: rgba(#ff2a6d, 0.2);
+      color: #fff;
+      border-color: #05d9e8;
+    }
+  }
+}
+
+// Cyberpunk file input
+.cust-file-button {
+  .custom-file-label {
+    height: calc(2.25rem + 8px);
+    line-height: 2.5;
+    background: $cyber-input-bg;
+    border: $cyber-input-border;
+    color: $cyber-placeholder-color;
+    box-shadow: $cyber-input-glow;
+    border-radius: 0;
+
+    &::after {
+      padding: 0.775rem 0.75rem;
+      height: 2.65rem;
+      background: rgba(#ff2a6d, 0.3);
+      color: #fff;
+      border-left: 1px solid rgba(#ff2a6d, 0.5);
+      border-radius: 0;
+    }
+  }
+
+  .custom-file-input:focus ~ .custom-file-label {
+    box-shadow: $cyber-input-focus-glow;
+    border-color: #05d9e8;
+    
+    &::after {
+      background: rgba(#ff2a6d, 0.5);
+    }
+  }
+}
+
+.custom-select {
+  height: calc(2.25rem + 9px);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2305d9e8' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+}
+
+// Select2 cyberpunk styling
+.select2-container {
+  width: 100% !important;
+
+  .select2-selection {
+    background: $cyber-input-bg;
+    border: $cyber-input-border;
+    border-radius: 0;
+    box-shadow: $cyber-input-glow;
+    
+    &__rendered {
+      color: #00f0ff;
+    }
+    
+    &__arrow {
+      b {
+        border-color: #05d9e8 transparent transparent transparent;
+      }
+    }
+  }
+
+  &.select2-container--focus .select2-selection {
+    box-shadow: $cyber-input-focus-glow;
+    border-color: #05d9e8;
+  }
+}
+
+// Bootstrap tags input cyberpunk style
+.bootstrap-tagsinput {
+  background: $cyber-input-bg;
+  border: $cyber-input-border;
+  box-shadow: $cyber-input-glow;
+  color: #00f0ff;
+  border-radius: 0;
+  
+  .tag {
+    background: rgba(#ff2a6d, 0.3);
+    color: #fff;
+    padding: 3px 8px;
+    border: 1px solid rgba(#ff2a6d, 0.5);
+    text-shadow: 0 0 5px #ff2a6d;
+  }
+}
+
+// Height adjustments with cyberpunk style
+select.form-control:not([size]):not([multiple]) {
+  height: calc(2.55rem + 2px);
+}
+
+.input-group-lg {
+  > .input-group-append > select.btn:not([size]):not([multiple]),
+  > .input-group-append > select.input-group-text:not([size]):not([multiple]),
+  > .input-group-prepend > select.btn:not([size]):not([multiple]),
+  > .input-group-prepend > select.input-group-text:not([size]):not([multiple]),
+  > select.form-control:not([size]):not([multiple]),
+  select.form-control-lg:not([size]):not([multiple]) {
+    height: calc(3.375rem + 2px);
+    font-size: 1.25rem;
+    box-shadow: 0 0 15px rgba(#05d9e8, 0.4);
+  }
+}
+
+// Minicolors picker cyberpunk style
+.minicolors {
+  .form-control {
+    padding: 6px 12px 5px 44px;
+    background: $cyber-input-bg;
+    border: $cyber-input-border;
+  }
+  
+  .minicolors-swatch {
+    border: 1px solid rgba(#05d9e8, 0.5);
+    box-shadow: 0 0 5px rgba(#05d9e8, 0.3);
+  }
+}
+
+// Cyberpunk focus animations
+@keyframes cyber-focus {
+  0% { box-shadow: 0 0 5px rgba(#05d9e8, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(#ff2a6d, 0.6); }
+  100% { box-shadow: 0 0 5px rgba(#05d9e8, 0.3); }
+}
+
+.form-control:focus, 
+.custom-select:focus,
+.bootstrap-tagsinput.focus {
+  animation: cyber-focus 2s infinite;
+}

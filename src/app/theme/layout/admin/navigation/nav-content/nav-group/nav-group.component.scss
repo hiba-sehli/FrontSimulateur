@@ -1,0 +1,169 @@
+/* CYBERPUNK MENU STYLES */
+$cyber-blue: #05d9e8;
+$cyber-pink: #ff2a6d;
+$cyber-purple: #d300c5;
+$cyber-green: #00f800;
+$cyber-bg-dark: #0d0221;
+$cyber-text: #e2f3f4;
+$cyber-text-muted: rgba($cyber-text, 0.6);
+
+.cyber-menu-caption {
+  padding: 15px 20px 5px;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    height: 1px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba($cyber-blue, 0.5), 
+      transparent);
+  }
+}
+
+.cyber-caption-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.cyber-caption-hack {
+  color: $cyber-blue;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px rgba($cyber-blue, 0.3);
+  position: relative;
+  padding-right: 15px;
+  background: $cyber-bg-dark;
+  z-index: 2;
+  
+  &::before {
+    content: '[';
+    position: absolute;
+    left: -10px;
+    color: $cyber-green;
+  }
+  
+  &::after {
+    content: ']';
+    position: absolute;
+    right: 0;
+    color: $cyber-green;
+  }
+}
+
+.cyber-caption-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    rgba($cyber-blue, 0.3), 
+    transparent);
+  margin-left: 10px;
+}
+
+.cyber-menu-item {
+  position: relative;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba($cyber-blue, 0.1);
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: $cyber-pink;
+      box-shadow: 0 0 10px $cyber-pink;
+    }
+  }
+  
+  &.active {
+    background: rgba($cyber-blue, 0.2);
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: $cyber-blue;
+      box-shadow: 0 0 15px $cyber-blue;
+    }
+  }
+}
+
+/* Cyberpunk collapse menu items */
+::ng-deep .cyber-menu-item .nav-link {
+  color: $cyber-text-muted;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: $cyber-text;
+    text-shadow: 0 0 5px $cyber-blue;
+    
+    .pcoded-micon, .pcoded-mtext {
+      color: $cyber-text;
+    }
+  }
+  
+  &.active {
+    color: $cyber-blue;
+    text-shadow: 0 0 5px $cyber-blue;
+    
+    .pcoded-micon, .pcoded-mtext {
+      color: $cyber-blue;
+    }
+  }
+}
+
+::ng-deep .cyber-menu-item .pcoded-micon {
+  margin-right: 10px;
+  font-size: 18px;
+  color: $cyber-text-muted;
+  transition: all 0.3s ease;
+}
+
+::ng-deep .cyber-menu-item .pcoded-mtext {
+  font-size: 14px;
+  color: $cyber-text-muted;
+  transition: all 0.3s ease;
+}
+
+::ng-deep .cyber-menu-item .pcoded-submenu {
+  background: rgba($cyber-bg-dark, 0.8);
+  border-left: 1px solid rgba($cyber-blue, 0.2);
+  
+  > li > a {
+    padding-left: 50px !important;
+    
+    &::before {
+      content: '>';
+      position: absolute;
+      left: 30px;
+      color: $cyber-green;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+    }
+  }
+}
+
+/* Cyberpunk menu animations */
+@keyframes cyber-menu-pulse {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}

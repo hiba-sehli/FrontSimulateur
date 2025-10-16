@@ -1,0 +1,215 @@
+// Variables cyberpunk pour les cartes
+$card-bg-dark: rgba(#0d0221, 0.85);
+$card-border-neon: 1px solid rgba(#05d9e8, 0.3);
+$card-header-glow: 0 0 15px rgba(#ff2a6d, 0.4);
+$card-shadow: 0 0 20px rgba(#05d9e8, 0.2);
+
+.card {
+  background: $card-bg-dark;
+  border: $card-border-neon;
+  border-radius: 0;
+  box-shadow: $card-shadow;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  margin-bottom: 1.5rem;
+
+  // Effet de scan lines (optionnel)
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(#05d9e8, 0.3), transparent);
+    animation: scanline 6s linear infinite;
+  }
+
+  &.full-card {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 9999;
+    margin: 0;
+    box-shadow: 0 0 50px rgba(#d300c5, 0.8);
+  }
+
+  .card-header {
+    background: rgba(#1a1b41, 0.7);
+    border-bottom: 1px solid rgba(#05d9e8, 0.5);
+    padding: 1.25rem 1.25rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h5 {
+      color: #05d9e8;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0;
+      text-shadow: 0 0 10px rgba(#05d9e8, 0.5);
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #ff2a6d, #05d9e8, #d300c5);
+      opacity: 0.7;
+    }
+  }
+
+  .card-header-right {
+    .btn-group {
+      .dropdown-toggle {
+        background: transparent;
+        border: 1px solid rgba(#05d9e8, 0.3);
+        color: #05d9e8;
+        padding: 0.25rem 0.75rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: rgba(#05d9e8, 0.2);
+          box-shadow: 0 0 10px rgba(#05d9e8, 0.5);
+        }
+
+        i {
+          filter: drop-shadow(0 0 5px #05d9e8);
+        }
+      }
+    }
+
+    .dropdown-menu {
+      background: $card-bg-dark;
+      border: 1px solid rgba(#ff2a6d, 0.5);
+      box-shadow: 0 0 20px rgba(#ff2a6d, 0.3);
+      border-radius: 0;
+
+      .dropdown-item {
+        color: #00f0ff;
+        padding: 0.5rem 1.5rem;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+          content: '';
+          position: absolute;
+          left: -100%;
+          top: 0;
+          bottom: 0;
+          width: 5px;
+          background: #ff2a6d;
+          transition: all 0.3s ease;
+        }
+
+        &:hover {
+          background: rgba(#ff2a6d, 0.2);
+          color: #fff;
+          text-shadow: 0 0 8px #00f0ff;
+
+          &::before {
+            left: 0;
+          }
+
+          i {
+            filter: drop-shadow(0 0 5px #00f0ff);
+          }
+        }
+
+        i {
+          margin-right: 0.5rem;
+          transition: all 0.3s ease;
+        }
+      }
+    }
+  }
+
+  .card-block {
+    padding: 1.25rem;
+    background: rgba(#0d0221, 0.5);
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(#05d9e8, 0.5), transparent);
+    }
+  }
+
+  .card-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(#0d0221, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9;
+
+    .pct-loader1 {
+      color: #05d9e8;
+      font-size: 2rem;
+      text-shadow: 0 0 15px #05d9e8;
+      animation: neon-spin 1.5s linear infinite;
+    }
+  }
+}
+
+// Animations
+@keyframes scanline {
+  0% { top: -10px; }
+  100% { top: 100%; }
+}
+
+@keyframes neon-spin {
+  0% { 
+    transform: rotate(0deg);
+    filter: drop-shadow(0 0 5px #05d9e8);
+  }
+  50% {
+    filter: drop-shadow(0 0 15px #ff2a6d);
+  }
+  100% { 
+    transform: rotate(360deg);
+    filter: drop-shadow(0 0 5px #05d9e8);
+  }
+}
+
+// Animation pour la carte qui se retire
+.card-remove-animation {
+  transform: scale(0.8);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+// Style pour la carte repliée
+.collapsed-card {
+  .card-block {
+    display: none;
+  }
+  
+  .card-header {
+    border-bottom: none;
+    
+    &::after {
+      opacity: 0;
+    }
+  }
+}

@@ -1,0 +1,122 @@
+/* CYBERPUNK NAVIGATION ITEM STYLES */
+$cyber-blue: #05d9e8;
+$cyber-pink: #ff2a6d;
+$cyber-purple: #d300c5;
+$cyber-green: #00f800;
+$cyber-bg-dark: #0d0221;
+$cyber-text: #e2f3f4;
+$cyber-text-muted: rgba($cyber-text, 0.6);
+
+.cyber-nav-item {
+  position: relative;
+  margin: 5px 0;
+  transition: all 0.3s ease;
+  overflow: hidden;
+
+  &:hover {
+    background: rgba($cyber-blue, 0.1);
+
+    .cyber-nav-glow {
+      opacity: 0.8;
+    }
+
+    .cyber-nav-icon i {
+      filter: drop-shadow(0 0 5px $cyber-blue);
+    }
+  }
+
+  &.active {
+    background: rgba($cyber-blue, 0.2);
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: $cyber-blue;
+      box-shadow: 0 0 10px $cyber-blue;
+    }
+
+    .cyber-nav-text {
+      color: $cyber-blue;
+      text-shadow: 0 0 8px $cyber-blue;
+    }
+
+    .cyber-nav-icon i {
+      color: $cyber-blue;
+      filter: drop-shadow(0 0 8px $cyber-blue);
+    }
+  }
+}
+
+.cyber-nav-link {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: $cyber-text-muted;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.cyber-nav-icon {
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+
+  i {
+    font-size: 18px;
+    color: $cyber-text-muted;
+    transition: all 0.3s ease;
+  }
+}
+
+.cyber-nav-text {
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.cyber-nav-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid rgba($cyber-blue, 0.3);
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+/* External link indicator */
+.cyber-nav-item [target="_blank"]::after {
+  content: '↗';
+  margin-left: 8px;
+  color: $cyber-green;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* Cyberpunk animations */
+@keyframes cyber-link-pulse {
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cyber-nav-item {
+    margin: 3px 0;
+  }
+
+  .cyber-nav-link {
+    padding: 10px 15px;
+  }
+}

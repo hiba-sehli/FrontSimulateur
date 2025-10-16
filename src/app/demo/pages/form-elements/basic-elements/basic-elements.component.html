@@ -1,0 +1,221 @@
+<!-- Cyberpunk Vehicle Import Form -->
+<div class="row cyberpunk-bg">
+  <div class="col-sm-12">
+    <div class="card cyber-card">
+      <div class="card-header cyber-header">
+        <h4 class="mb-0 cyber-title">
+          <i class="fas fa-car-crash me-2"></i>FCR VEHICLE IMPORT TERMINAL
+        </h4>
+        <div class="cyber-status">SYSTEM: ONLINE</div>
+      </div>
+      <div class="card-body cyber-body">
+        <form #vehicleForm="ngForm" (ngSubmit)="saveVehicle(vehicleForm)">
+          
+          <!-- Vehicle Identification Section -->
+          <div class="cyber-section">
+            <div class="cyber-section-header">
+              <span class="cyber-hack-effect">[1]</span>
+              <h5>VEHICLE IDENTIFICATION</h5>
+              <div class="cyber-underline"></div>
+            </div>
+            <div class="row cyber-row">
+              <div class="col-md-4">
+                <div class="form-group cyber-input-group">
+                  <label for="marque" class="cyber-label">
+                    <i class="fas fa-trademark me-1"></i>BRAND (MARQUE)*
+                  </label>
+                  <input type="text" class="form-control cyber-input" id="marque" 
+                        [(ngModel)]="vehicle.marque" name="marque" required>
+                  <div class="cyber-input-glow"></div>
+                  <small class="cyber-error" *ngIf="vehicleForm.submitted && vehicleForm.controls['marque']?.errors">
+                    ! REQUIRED FIELD !
+                  </small>
+                </div>
+              </div>
+              
+              <div class="col-md-4">
+                <div class="form-group cyber-input-group">
+                  <label for="modele" class="cyber-label">
+                    <i class="fas fa-car me-1"></i>MODEL (MODÈLE)*
+                  </label>
+                  <input type="text" class="form-control cyber-input" id="modele" 
+                        [(ngModel)]="vehicle.modele" name="modele" required>
+                  <div class="cyber-input-glow"></div>
+                </div>
+              </div>
+              
+              <div class="col-md-4">
+                <div class="form-group cyber-input-group">
+                  <label for="anneeFabrication" class="cyber-label">
+                    <i class="fas fa-calendar-alt me-1"></i>MANUFACTURING YEAR*
+                  </label>
+                  <input type="number" class="form-control cyber-input" id="anneeFabrication" 
+                        [(ngModel)]="vehicle.anneeFabrication" name="anneeFabrication" 
+                        min="1990" [max]="currentYear" required>
+                  <div class="cyber-input-glow"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Technical Specifications -->
+          <div class="cyber-section">
+            <div class="cyber-section-header">
+              <span class="cyber-hack-effect">[2]</span>
+              <h5>TECHNICAL SPECIFICATIONS</h5>
+              <div class="cyber-underline"></div>
+            </div>
+            <div class="row cyber-row mt-3">
+              <div class="col-md-3">
+                <div class="form-group cyber-input-group">
+                  <label for="kilometrage" class="cyber-label">
+                    <i class="fas fa-tachometer-alt me-1"></i>MILEAGE (KM)
+                  </label>
+                  <input type="number" class="form-control cyber-input" id="kilometrage" 
+                        [(ngModel)]="vehicle.kilometrage" name="kilometrage" min="0">
+                  <div class="cyber-input-glow"></div>
+                </div>
+              </div>
+              
+              <div class="col-md-3">
+                <div class="form-group cyber-input-group">
+                  <label for="couleur" class="cyber-label">
+                    <i class="fas fa-palette me-1"></i>COLOR
+                  </label>
+                  <input type="text" class="form-control cyber-input" id="couleur" 
+                        [(ngModel)]="vehicle.couleur" name="couleur">
+                  <div class="cyber-input-glow"></div>
+                </div>
+              </div>
+              
+              <div class="col-md-3">
+                <div class="form-group cyber-input-group">
+                  <label for="typeCarburant" class="cyber-label">
+                    <i class="fas fa-gas-pump me-1"></i>FUEL TYPE
+                  </label>
+                  <select class="form-control cyber-input cyber-select" id="typeCarburant" 
+                          [(ngModel)]="vehicle.typeCarburant" name="typeCarburant">
+                    <option value="GASOLINE">⛽ GASOLINE</option>
+                    <option value="DIESEL">⛽ DIESEL</option>
+                    <option value="HYBRID">🔋 HYBRID</option>
+                    <option value="ELECTRIC">⚡ ELECTRIC</option>
+                  </select>
+                  <div class="cyber-input-glow"></div>
+                </div>
+              </div>
+              
+              <div class="col-md-3">
+                <div class="form-group cyber-input-group">
+                  <label for="numeroSerie" class="cyber-label">
+                    <i class="fas fa-barcode me-1"></i>SERIAL NUMBER
+                  </label>
+                  <input type="text" class="form-control cyber-input" id="numeroSerie" 
+                        [(ngModel)]="vehicle.numeroSerie" name="numeroSerie">
+                  <div class="cyber-input-glow"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pricing and Location -->
+          <div class="cyber-section">
+            <div class="cyber-section-header">
+              <span class="cyber-hack-effect">[3]</span>
+              <h5>PRICING & LOCATION DATA</h5>
+              <div class="cyber-underline"></div>
+            </div>
+            <div class="row cyber-row">
+              <div class="col-md-4">
+                <div class="form-group cyber-input-group">
+                  <label for="prix" class="cyber-label">
+                    <i class="fas fa-euro-sign me-1"></i>PRICE (€)*
+                  </label>
+                  <div class="input-group cyber-input-group">
+                    <input type="number" class="form-control cyber-input" id="prix" 
+                          [(ngModel)]="vehicle.prix" name="prix" min="0" step="0.01"
+                          (change)="calculateCustomsSavings()" required>
+                    <span class="input-group-text cyber-currency">.00 CR</span>
+                    <div class="cyber-input-glow"></div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-4">
+                <div class="form-group cyber-input-group">
+                  <label class="cyber-label">
+                    <i class="fas fa-coins me-1"></i>CUSTOMS SAVINGS (TND)
+                  </label>
+                  <input type="text" class="form-control cyber-input cyber-readonly" 
+                        [value]="vehicle.customsSavings | currency:'TND':'symbol':'1.0-0'" readonly>
+                  <div class="cyber-input-glow"></div>
+                </div>
+              </div>
+              
+              <div class="col-md-2">
+                <div class="form-group cyber-input-group">
+                  <label for="longitude" class="cyber-label">
+                    <i class="fas fa-map-marked-alt me-1"></i>LONGITUDE
+                  </label>
+                  <input type="number" class="form-control cyber-input" id="longitude" 
+                        [(ngModel)]="vehicle.longitude" name="longitude" step="0.000001">
+                  <div class="cyber-input-glow"></div>
+                </div>
+              </div>
+              
+              <div class="col-md-2">
+                <div class="form-group cyber-input-group">
+                  <label for="latitude" class="cyber-label">
+                    <i class="fas fa-map-marked-alt me-1"></i>LATITUDE
+                  </label>
+                  <input type="number" class="form-control cyber-input" id="latitude" 
+                        [(ngModel)]="vehicle.latitude" name="latitude" step="0.000001">
+                  <div class="cyber-input-glow"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Additional Features -->
+          <div class="cyber-section">
+            <div class="cyber-section-header">
+              <span class="cyber-hack-effect">[4]</span>
+              <h5>ADDITIONAL FEATURES</h5>
+              <div class="cyber-underline"></div>
+            </div>
+            <div class="row cyber-row mt-3">
+              <div class="col-12">
+                <div class="form-group cyber-input-group">
+                  <label for="features" class="cyber-label">
+                    <i class="fas fa-list-alt me-1"></i>SPECIAL FEATURES
+                  </label>
+                  <textarea class="form-control cyber-textarea" id="features" rows="3"
+                            [(ngModel)]="vehicle.caracteristiquesSupplementaires" 
+                            name="caracteristiquesSupplementaires"></textarea>
+                  <div class="cyber-input-glow"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="row mt-4 cyber-actions">
+            <div class="col-12 text-end">
+              <button type="button" class="btn cyber-btn cyber-btn-outline me-2" (click)="resetForm(vehicleForm)">
+                <i class="fas fa-undo me-1"></i> RESET DATA
+              </button>
+              <button type="submit" class="btn cyber-btn cyber-btn-primary" [disabled]="vehicleForm.invalid">
+                <i class="fas fa-save me-1"></i> SAVE TO DATABASE
+              </button>
+            </div>
+          </div>
+
+          <!-- Cyberpunk terminal status -->
+          <div class="cyber-terminal-status">
+            <div class="cyber-terminal-line">> SYSTEM READY FOR INPUT</div>
+            <div class="cyber-terminal-line">> FORM VALIDATION: {{ vehicleForm.valid ? 'PASSED' : 'PENDING' }}</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

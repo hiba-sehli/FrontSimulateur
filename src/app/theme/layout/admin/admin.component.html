@@ -1,0 +1,46 @@
+<div class="cyberpunk-app">
+  <!-- Cyberpunk Navigation -->
+  <app-navigation
+    class="cyber-navbar"
+    [ngClass]="{
+      'cyber-nav-collapsed': navCollapsed,
+      'cyber-mob-open': navCollapsedMob
+    }"
+    (NavCollapse)="this.navCollapsed = !this.navCollapsed"
+    (NavCollapsedMob)="navMobClick()"
+  />
+  
+  <!-- Cyberpunk Header -->
+  <app-nav-bar class="cyber-header" (NavCollapsedMob)="navMobClick()" />
+  
+  <!-- Main Content Area -->
+  <div class="cyber-main-container">
+    <div class="cyber-terminal-screen">
+      <div class="cyber-content">
+        <div class="cyber-inner-content">
+          <!-- Cyberpunk Breadcrumb -->
+          <app-breadcrumb class="cyber-breadcrumb" />
+          
+          <div class="cyber-main-body">
+            <div class="cyber-page-wrapper">
+              <!-- Scanline effect over content -->
+              <div class="cyber-scanline"></div>
+              <router-outlet />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Cyberpunk Overlay -->
+    <div 
+      class="cyber-overlay" 
+      (click)="closeMenu()" 
+      (keydown)="handleKeyDown($event)" 
+      tabindex="0"
+    ></div>
+  </div>
+  
+  <!-- Cyberpunk Configuration Panel -->
+  <app-configuration class="cyber-config-panel" />
+</div>

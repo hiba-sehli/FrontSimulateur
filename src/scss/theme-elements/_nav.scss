@@ -1,0 +1,237 @@
+/* CYBERPUNK NAVIGATION STYLES */
+$cyber-blue: #05d9e8;
+$cyber-pink: #ff2a6d;
+$cyber-purple: #d300c5;
+$cyber-green: #00f800;
+$cyber-bg-dark: #0d0221;
+$cyber-text: #e2f3f4;
+$cyber-text-muted: rgba($cyber-text, 0.6);
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba($cyber-blue, 0.3), 
+      transparent);
+  }
+}
+
+.nav-link {
+  display: block;
+  padding: 12px 24px;
+  color: $cyber-text-muted;
+  text-decoration: none;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  position: relative;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: $cyber-blue;
+    text-shadow: 0 0 5px rgba($cyber-blue, 0.5);
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 24px;
+      right: 24px;
+      height: 2px;
+      background: $cyber-blue;
+      box-shadow: 0 0 10px $cyber-blue;
+    }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    color: $cyber-text-muted;
+    pointer-events: none;
+  }
+}
+
+//
+// Cyberpunk Tabs
+//
+
+.nav-tabs {
+  border-bottom: none;
+  
+  .nav-link {
+    border: none;
+    color: $cyber-text-muted;
+    background: transparent;
+    
+    &:hover {
+      color: $cyber-blue;
+      background: rgba($cyber-blue, 0.1);
+    }
+
+    &.disabled {
+      opacity: 0.5;
+      color: $cyber-text-muted;
+    }
+  }
+
+  .nav-item.show .nav-link,
+  .nav-link.active {
+    color: $cyber-blue;
+    text-shadow: 0 0 10px $cyber-blue;
+    background: rgba($cyber-blue, 0.2);
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 24px;
+      right: 24px;
+      height: 2px;
+      background: $cyber-blue;
+      box-shadow: 0 0 15px $cyber-blue;
+      animation: cyber-pulse 2s infinite;
+    }
+  }
+}
+
+//
+// Cyberpunk Pills
+//
+
+.nav-pills {
+  padding: 15px;
+  background: rgba($cyber-bg-dark, 0.7);
+  box-shadow: 0 0 20px rgba($cyber-blue, 0.1);
+  border: 1px solid rgba($cyber-blue, 0.2);
+  
+  .nav-link {
+    border-radius: 0;
+    margin: 0 5px;
+    border: 1px solid rgba($cyber-blue, 0.3);
+    
+    &:hover {
+      background: rgba($cyber-blue, 0.2);
+      border-color: $cyber-blue;
+    }
+  }
+
+  .nav-link.active,
+  .show > .nav-link {
+    color: $cyber-text;
+    background: linear-gradient(135deg, 
+      rgba($cyber-blue, 0.7), 
+      rgba($cyber-purple, 0.7));
+    border-color: $cyber-blue;
+    box-shadow: 0 0 20px rgba($cyber-blue, 0.5);
+    text-shadow: 0 0 10px $cyber-text;
+    
+    &::before {
+      content: '>';
+      position: absolute;
+      left: 10px;
+      color: $cyber-green;
+      font-weight: bold;
+    }
+    
+    &::after {
+      content: '<';
+      position: absolute;
+      right: 10px;
+      color: $cyber-green;
+      font-weight: bold;
+    }
+  }
+}
+
+//
+// Justified variants
+//
+
+.nav-fill,
+.nav-justified {
+  .nav-item {
+    flex: 1 1 auto;
+    text-align: center;
+    
+    .nav-link {
+      width: 100%;
+    }
+  }
+}
+
+// Cyberpunk Tab Content
+.tab-content {
+  background: rgba($cyber-bg-dark, 0.7);
+  border: 1px solid rgba($cyber-blue, 0.2);
+  box-shadow: 0 0 30px rgba($cyber-blue, 0.1);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      $cyber-blue, 
+      transparent);
+    animation: scanline 8s linear infinite;
+  }
+
+  > .tab-pane {
+    display: none;
+    padding: 20px;
+  }
+
+  > .active {
+    display: block;
+  }
+}
+
+/* Cyberpunk Animations */
+@keyframes cyber-pulse {
+  0% { opacity: 0.7; box-shadow: 0 0 10px $cyber-blue; }
+  50% { opacity: 1; box-shadow: 0 0 20px $cyber-blue; }
+  100% { opacity: 0.7; box-shadow: 0 0 10px $cyber-blue; }
+}
+
+@keyframes scanline {
+  0% { top: -10px; }
+  100% { top: 100%; }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+  }
+  
+  .nav-link {
+    padding: 10px 15px;
+  }
+  
+  .nav-pills {
+    padding: 10px;
+    
+    .nav-link {
+      margin: 2px 0;
+    }
+  }
+}

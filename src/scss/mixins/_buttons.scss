@@ -1,0 +1,292 @@
+// Variables cyberpunk
+$neon-pink: #ff2a6d;
+$neon-blue: #05d9e8;
+$neon-purple: #d300c5;
+$neon-green: #00f800;
+$neon-yellow: #ffe700;
+$cyber-dark: #0d0221;
+$cyber-dark-blue: #1a1b41;
+
+// Mise à jour des couleurs du thème
+$theme-colors: (
+  "primary": $neon-blue,
+  "secondary": $neon-purple,
+  "success": $neon-green,
+  "danger": $neon-pink,
+  "warning": $neon-yellow,
+  "info": #00f0ff,
+  "dark": $cyber-dark
+);
+
+// Mixin de bouton cyberpunk avec effets néon
+@mixin button-variant(
+  $background,
+  $border,
+  $hover-background: lighten($background, 15%),
+  $hover-border: lighten($border, 20%),
+  $active-background: lighten($background, 10%),
+  $active-border: lighten($border, 15%)
+) {
+  color: $cyber-dark;
+  background-color: $background;
+  border-color: $border;
+  border-width: 1px;
+  text-shadow: 0 0 5px rgba($border, 0.5);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  
+  // Effet de bordure néon
+  box-shadow: 
+    0 0 5px $border,
+    0 0 10px rgba($border, 0.5),
+    inset 0 0 5px $border;
+
+  &:hover {
+    color: $cyber-dark;
+    background-color: $hover-background;
+    border-color: $hover-border;
+    text-shadow: 0 0 10px $border;
+    box-shadow: 
+      0 0 15px $border,
+      0 0 20px rgba($border, 0.8),
+      inset 0 0 10px $border;
+    transform: translateY(-2px);
+  }
+
+  &.focus,
+  &:focus {
+    outline: none;
+    box-shadow: 
+      0 0 20px $border,
+      0 0 30px rgba($border, 0.9),
+      inset 0 0 15px $border;
+  }
+
+  &.disabled,
+  &:disabled {
+    opacity: 0.5;
+    box-shadow: none;
+    text-shadow: none;
+  }
+
+  &:not(:disabled):not(.disabled).active,
+  &:not(:disabled):not(.disabled):active,
+  .show > &.dropdown-toggle {
+    color: $cyber-dark;
+    background-color: $active-background;
+    border-color: $active-border;
+    box-shadow: 
+      0 0 10px $active-border,
+      inset 0 0 20px rgba($active-border, 0.8);
+  }
+}
+
+// Variante outline cyberpunk
+@mixin button-outline-variant($color, $color-hover: $color, $active-background: rgba($color, 0.2), $active-border: $color) {
+  color: $color;
+  background-color: transparent;
+  border-color: $color;
+  text-shadow: 0 0 10px $color;
+  box-shadow: 
+    0 0 10px rgba($color, 0.5),
+    inset 0 0 5px rgba($color, 0.3);
+  
+  &:hover {
+    color: $cyber-dark;
+    background-color: $color;
+    text-shadow: 0 0 5px rgba($cyber-dark, 0.8);
+    box-shadow: 
+      0 0 20px $color,
+      inset 0 0 15px rgba($color, 0.5);
+  }
+
+  &.focus,
+  &:focus {
+    box-shadow: 
+      0 0 25px $color,
+      inset 0 0 20px rgba($color, 0.6);
+  }
+
+  &:not(:disabled):not(.disabled).active,
+  &:not(:disabled):not(.disabled):active,
+  .show > &.dropdown-toggle {
+    color: $cyber-dark;
+    background-color: $active-background;
+    border-color: $active-border;
+    box-shadow: 
+      0 0 15px $active-border,
+      inset 0 0 25px rgba($active-border, 0.7);
+  }
+}
+
+// Effet de lueur cyberpunk amélioré
+@mixin button-glow-variant($color) {
+  box-shadow:
+    0 0 5px $color,
+    0 0 15px rgba($color, 0.8),
+    0 0 30px rgba($color, 0.6),
+    0 0 45px rgba($color, 0.4);
+  
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: $color;
+    z-index: -1;
+    filter: blur(15px);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+  }
+  
+  &:hover {
+    box-shadow:
+      0 0 10px $color,
+      0 0 25px rgba($color, 0.9),
+      0 0 40px rgba($color, 0.7),
+      0 0 60px rgba($color, 0.5);
+    
+    &::after {
+      opacity: 0.9;
+      filter: blur(20px);
+    }
+  }
+
+  &:not(:disabled):not(.disabled).active,
+  &:not(:disabled):not(.disabled):active:focus,
+  .show > &.dropdown-toggle,
+  &.active,
+  &:focus {
+    box-shadow:
+      0 0 15px $color,
+      0 0 30px rgba($color, 1),
+      inset 0 0 10px rgba($color, 0.8);
+  }
+}
+
+// Boutons light cyberpunk
+@each $color, $value in $theme-colors {
+  .btn-light-#{$color} {
+    @include button-variant(
+      rgba($value, 0.1),
+      $value,
+      rgba($value, 0.3),
+      lighten($value, 15%),
+      rgba($value, 0.4),
+      lighten($value, 20%)
+    );
+    color: $value;
+    text-shadow: 0 0 10px rgba($value, 0.7);
+    
+    .material-icons-two-tone {
+      background-color: $value;
+      filter: drop-shadow(0 0 5px $value);
+    }
+
+    &:hover {
+      color: lighten($value, 20%);
+      .material-icons-two-tone {
+        background-color: lighten($value, 20%);
+      }
+    }
+  }
+
+  .btn-check:active,
+  .btn-check:checked {
+    + .btn-light-#{$color} {
+      background: rgba($value, 0.4);
+      color: lighten($value, 20%);
+      border-color: lighten($value, 20%);
+      .material-icons-two-tone {
+        background-color: lighten($value, 20%);
+      }
+    }
+  }
+
+  // Boutons link cyberpunk
+  .btn-link-#{$color} {
+    background: transparent;
+    color: $value;
+    border-color: transparent;
+    text-shadow: 0 0 10px rgba($value, 0.7);
+    transition: all 0.3s ease;
+    
+    .material-icons-two-tone {
+      background-color: $value;
+      filter: drop-shadow(0 0 5px $value);
+    }
+    
+    &:hover {
+      background: rgba($value, 0.2);
+      color: lighten($value, 15%);
+      text-shadow: 0 0 15px $value;
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba($value, 0.5);
+      
+      .material-icons-two-tone {
+        background-color: lighten($value, 15%);
+      }
+    }
+
+    &.focus,
+    &:focus {
+      box-shadow: 0 0 20px rgba($value, 0.7);
+    }
+  }
+
+  // Ajout d'une classe de bouton néon spécifique
+  .btn-neon-#{$color} {
+    @include button-variant(
+      transparent,
+      $value,
+      rgba($value, 0.2),
+      lighten($value, 15%),
+      rgba($value, 0.3),
+      lighten($value, 20%)
+    );
+    @include button-glow-variant($value);
+    color: $value;
+    font-weight: bold;
+    letter-spacing: 1px;
+    
+    &:hover {
+      color: white;
+    }
+  }
+}
+
+// Animation globale pour les boutons
+.btn {
+  position: relative;
+  transition: all 0.4s ease;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  border-radius: 2px;
+  
+  &:active {
+    transform: translateY(1px);
+  }
+  
+  // Effet de scan lines (optionnel)
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(white, 0.3), transparent);
+    animation: scanline 3s linear infinite;
+    opacity: 0.3;
+  }
+}
+
+@keyframes scanline {
+  0% { top: 0; }
+  100% { top: 100%; }
+}

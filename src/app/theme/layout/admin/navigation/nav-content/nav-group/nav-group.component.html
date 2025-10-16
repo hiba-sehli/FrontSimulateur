@@ -1,0 +1,16 @@
+@if (!item().hidden) {
+  <li class="cyber-menu-caption">
+    <div class="cyber-caption-wrapper">
+      <span class="cyber-caption-hack">{{ item().title }}</span>
+      <div class="cyber-caption-line"></div>
+    </div>
+  </li>
+  @for (items of item().children; track items) {
+    @if (items.type === 'collapse') {
+      <app-nav-collapse [item]="items" class="cyber-menu-item" />
+    }
+    @if (items.type === 'item') {
+      <app-nav-item [item]="items" class="cyber-menu-item" />
+    }
+  }
+}

@@ -1,0 +1,191 @@
+<div class="cyber-dashboard">
+  <!-- FCR Stats Cards -->
+  <div class="cyber-grid">
+    @for (stat of fcrStats; track stat) {
+      <div class="cyber-stat-card {{ stat.design }}">
+        <app-card [hidHeader]="true" cardClass="cyber-card">
+          <h6 class="cyber-stat-title">{{ stat.title }}</h6>
+          <div class="cyber-stat-content">
+            <div class="cyber-stat-main">
+              <i class="cyber-icon feather {{ stat.icon }}"></i>
+              <h3 class="cyber-stat-value">{{ stat.amount }}</h3>
+            </div>
+            <div class="cyber-stat-secondary">
+              <p class="cyber-stat-percentage">{{ stat.percentage }}</p>
+            </div>
+          </div>
+          <div class="cyber-progress-container">
+            <ngb-progressbar 
+              type="cyber-progress {{ stat.progress_bg }}" 
+              height="7px" 
+              [value]="stat.progress">
+            </ngb-progressbar>
+          </div>
+        </app-card>
+      </div>
+    }
+    
+    <!-- FCR Utilization Map -->
+    <div class="cyber-map-card">
+      <app-card cardTitle="FCR UTILIZATION MATRIX" cardClass="cyber-card">
+        <div id="fcr-region-map" class="cyber-map"></div>
+      </app-card>
+    </div>
+    
+    <!-- Financial Summary -->
+    <div class="cyber-savings-card">
+      <div class="cyber-card cyber-savings">
+        <div class="cyber-card-header">
+          <h5 class="cyber-card-title">TOTAL SAVINGS GENERATED</h5>
+        </div>
+        <div class="cyber-card-body">
+          <div class="cyber-savings-text">
+            <h3 class="cyber-savings-amount">
+              {{ totalSavings | currency:'TND' }}
+              <i class="cyber-trend-up feather icon-arrow-up"></i>
+            </h3>
+            <span class="cyber-savings-label">FOR TUNISIAN BUYERS</span>
+          </div>
+          <div id="savings-trend-chart" class="cyber-savings-chart"></div>
+        </div>
+      </div>
+      
+      <!-- Quick Stats -->
+      <div class="cyber-card cyber-quick-stats">
+        @for (quickStat of quickStats; track quickStat) {
+          <div class="cyber-quick-stat {{ quickStat.design }}">
+            <div class="cyber-quick-stat-content">
+              <i class="cyber-icon feather {{ quickStat.icon }}"></i>
+              <div class="cyber-quick-stat-text">
+                <h3 class="cyber-quick-stat-value">{{ quickStat.number }}</h3>
+                <span class="cyber-quick-stat-label">{{ quickStat.text }}</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+    
+    <!-- FCR Status Cards -->
+    @for (statusCard of fcrStatusCards; track statusCard) {
+      <div class="cyber-status-card {{ statusCard.design }}">
+        <div class="cyber-card cyber-status">
+          <div class="cyber-status-header">
+            <i class="cyber-status-icon {{ statusCard.icon }}"></i>
+            <div class="cyber-status-text">
+              <h3 class="cyber-status-value">{{ statusCard.amount }}</h3>
+              <h5 class="cyber-status-percentage {{ statusCard.color }}">
+                {{ statusCard.percentage }}
+                <span class="cyber-status-label">{{ statusCard.label }}</span>
+              </h5>
+            </div>
+          </div>
+          <div class="cyber-status-progress">
+            <div class="cyber-progress-item">
+              <h6 class="cyber-progress-label">
+                <span class="cyber-progress-muted">TARGET:</span>
+                {{ statusCard.target }}
+              </h6>
+              <ngb-progressbar 
+                type="cyber-progress {{ statusCard.progress_bg }}" 
+                height="6px" 
+                [value]="statusCard.progress">
+              </ngb-progressbar>
+            </div>
+            <div class="cyber-progress-item">
+              <h6 class="cyber-progress-label">
+                <span class="cyber-progress-muted">DAYS LEFT:</span>
+                {{ statusCard.duration }}
+              </h6>
+              <ngb-progressbar 
+                type="cyber-progress {{ statusCard.progress_bg_2 }}" 
+                height="6px" 
+                [value]="statusCard.progress2">
+              </ngb-progressbar>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    
+    <!-- User Satisfaction Rating -->
+    <div class="cyber-satisfaction-card">
+      <app-card cardTitle="USER SATISFACTION MATRIX" cardClass="cyber-card">
+        <div class="cyber-satisfaction-header">
+          <div class="cyber-satisfaction-rating">
+            <h2 class="cyber-rating-value">4.7</h2>
+            <i class="cyber-rating-star fas fa-star"></i>
+          </div>
+          <div class="cyber-satisfaction-trend">
+            <h6 class="cyber-trend-value">0.4</h6>
+            <i class="cyber-trend-up fas fa-caret-up"></i>
+          </div>
+        </div>
+        <div class="cyber-rating-bars">
+          @for (rating of satisfactionRatings; track rating; let last = $last) {
+            <div class="cyber-rating-item">
+              <div class="cyber-rating-label">
+                <i class="cyber-rating-star fas fa-star"></i>
+                <span>{{ rating.number }}</span>
+              </div>
+              <h6 class="cyber-rating-amount">{{ rating.amount }}</h6>
+              <div class="cyber-rating-progress" [ngClass]="{ 'cyber-rating-last': !last }">
+                <ngb-progressbar 
+                  type="cyber-progress {{ rating.progress_bg }}" 
+                  height="6px" 
+                  [value]="rating.progress">
+                </ngb-progressbar>
+              </div>
+            </div>
+          }
+        </div>
+      </app-card>
+    </div>
+    
+    <!-- Recent Transactions -->
+    <div class="cyber-transactions-card">
+      <app-card cardTitle="RECENT TRANSACTION LOGS" cardClass="cyber-card cyber-transactions">
+        <div class="cyber-table-container">
+          <table class="cyber-table">
+            <thead>
+              <tr class="cyber-table-header">
+                <th>PARTIES</th>
+                <th>VEHICLE</th>
+                <th>SAVINGS</th>
+                <th>STATUS</th>
+                <th>ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (transaction of recentTransactions; track transaction) {
+                <tr class="cyber-table-row">
+                  <td class="cyber-table-user">
+                    <img class="cyber-user-avatar" [src]="transaction.src" alt="user" />
+                    <div class="cyber-user-info">
+                      <h6 class="cyber-user-name">{{ transaction.title }}</h6>
+                      <p class="cyber-user-role">{{ transaction.role }}</p>
+                    </div>
+                  </td>
+                  <td class="cyber-table-vehicle">
+                    <p class="cyber-vehicle-model">{{ transaction.vehicle }}</p>
+                    <p class="cyber-vehicle-type">{{ transaction.vehicleType }}</p>
+                  </td>
+                  <td class="cyber-table-savings">
+                    {{ transaction.savings | currency:'TND' }}
+                  </td>
+                  <td class="cyber-table-status">
+                    <span class="cyber-status-badge {{ transaction.statusClass }}">{{ transaction.status }}</span>
+                  </td>
+                  <td class="cyber-table-actions">
+                    <button class="cyber-btn cyber-btn-outline">DETAILS</button>
+                    <button class="cyber-btn cyber-btn-primary">PROCESS</button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </app-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,629 @@
+/* CYBERPUNK DASHBOARD THEME */
+$cyber-blue: #05d9e8;
+$cyber-pink: #ff2a6d;
+$cyber-purple: #d300c5;
+$cyber-green: #00f800;
+$cyber-yellow: #ffe700;
+$cyber-bg-dark: #0d0221;
+$cyber-bg-darker: #050318;
+$cyber-text: #e2f3f4;
+$cyber-text-muted: rgba($cyber-text, 0.6);
+
+.cyber-dashboard {
+  background: radial-gradient(ellipse at bottom, $cyber-bg-darker 0%, $cyber-bg-dark 100%);
+  padding: 20px;
+  min-height: 100vh;
+  font-family: 'Courier New', monospace;
+  position: relative;
+  overflow-x: hidden;
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      linear-gradient(rgba($cyber-blue, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba($cyber-blue, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+.cyber-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Cyber Card Base Styles */
+.cyber-card {
+  background: rgba($cyber-bg-dark, 0.7);
+  border: 1px solid rgba($cyber-blue, 0.3);
+  box-shadow: 0 0 15px rgba($cyber-blue, 0.1);
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, $cyber-blue, transparent);
+    animation: scanline 6s linear infinite;
+  }
+
+  &:hover {
+    box-shadow: 0 0 25px rgba($cyber-blue, 0.3);
+    transform: translateY(-3px);
+  }
+}
+
+/* Stat Cards */
+.cyber-stat-card {
+  grid-column: span 4;
+
+  .cyber-stat-title {
+    color: $cyber-blue;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-shadow: 0 0 5px rgba($cyber-blue, 0.3);
+  }
+
+  .cyber-stat-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .cyber-stat-main {
+    display: flex;
+    align-items: center;
+  }
+
+  .cyber-icon {
+    font-size: 30px;
+    margin-right: 15px;
+    color: $cyber-pink;
+    filter: drop-shadow(0 0 5px $cyber-pink);
+  }
+
+  .cyber-stat-value {
+    color: $cyber-text;
+    font-weight: 300;
+    margin: 0;
+    font-size: 28px;
+    letter-spacing: 1px;
+  }
+
+  .cyber-stat-percentage {
+    color: $cyber-green;
+    font-weight: 600;
+    text-shadow: 0 0 5px rgba($cyber-green, 0.3);
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .cyber-progress-container {
+    margin-top: 25px;
+  }
+}
+
+/* Map Card */
+.cyber-map-card {
+  grid-column: span 8;
+
+  .cyber-map {
+    height: 450px;
+    background: rgba($cyber-bg-dark, 0.5);
+    border: 1px solid rgba($cyber-blue, 0.2);
+  }
+}
+
+/* Savings Card */
+.cyber-savings-card {
+  grid-column: span 4;
+  display: grid;
+  gap: 20px;
+  grid-template-rows: auto 1fr;
+}
+
+.cyber-savings {
+  background: linear-gradient(135deg, rgba($cyber-blue, 0.2), rgba($cyber-purple, 0.2)) !important;
+
+  .cyber-card-header {
+    border-bottom: 1px solid rgba($cyber-blue, 0.3);
+    padding: 15px 20px;
+  }
+
+  .cyber-card-title {
+    color: $cyber-text;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin: 0;
+    text-shadow: 0 0 5px rgba($cyber-text, 0.3);
+  }
+
+  .cyber-card-body {
+    padding: 20px;
+  }
+
+  .cyber-savings-text {
+    margin-bottom: 20px;
+  }
+
+  .cyber-savings-amount {
+    color: $cyber-text;
+    font-weight: 300;
+    font-size: 32px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+  }
+
+  .cyber-trend-up {
+    color: $cyber-green;
+    font-size: 20px;
+    margin-left: 10px;
+    filter: drop-shadow(0 0 5px $cyber-green);
+  }
+
+  .cyber-savings-label {
+    color: $cyber-text-muted;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .cyber-savings-chart {
+    height: 180px;
+  }
+}
+
+/* Quick Stats Card */
+.cyber-quick-stats {
+  .cyber-quick-stat {
+    padding: 20px;
+    border-bottom: 1px solid rgba($cyber-blue, 0.1);
+    transition: all 0.3s ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: rgba($cyber-blue, 0.05);
+    }
+  }
+
+  .cyber-quick-stat-content {
+    display: flex;
+    align-items: center;
+  }
+
+  .cyber-icon {
+    font-size: 30px;
+    margin-right: 15px;
+    color: $cyber-blue;
+    filter: drop-shadow(0 0 5px $cyber-blue);
+  }
+
+  .cyber-quick-stat-text {
+    flex: 1;
+  }
+
+  .cyber-quick-stat-value {
+    color: $cyber-text;
+    font-weight: 300;
+    margin: 0 0 5px 0;
+    font-size: 24px;
+  }
+
+  .cyber-quick-stat-label {
+    color: $cyber-text-muted;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+}
+
+/* Status Cards */
+.cyber-status-card {
+  grid-column: span 4;
+
+  .cyber-status {
+    .cyber-status-header {
+      padding: 20px;
+      border-bottom: 1px solid rgba($cyber-blue, 0.2);
+      display: flex;
+      align-items: center;
+    }
+
+    .cyber-status-icon {
+      font-size: 36px;
+      margin-right: 20px;
+      color: $cyber-pink;
+      filter: drop-shadow(0 0 5px $cyber-pink);
+    }
+
+    .cyber-status-text {
+      flex: 1;
+    }
+
+    .cyber-status-value {
+      color: $cyber-text;
+      font-weight: 300;
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .cyber-status-percentage {
+      margin: 5px 0 0 0;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .cyber-status-label {
+      color: $cyber-text-muted;
+      font-size: 12px;
+      margin-left: 5px;
+    }
+
+    .cyber-status-progress {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .cyber-progress-item {
+      h6 {
+        color: $cyber-text;
+        font-size: 12px;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .cyber-progress-muted {
+        color: $cyber-text-muted;
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+/* Satisfaction Card */
+.cyber-satisfaction-card {
+  grid-column: span 4;
+
+  .cyber-satisfaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .cyber-satisfaction-rating {
+    display: flex;
+    align-items: center;
+  }
+
+  .cyber-rating-value {
+    color: $cyber-text;
+    font-weight: 300;
+    font-size: 36px;
+    margin: 0;
+  }
+
+  .cyber-rating-star {
+    color: $cyber-yellow;
+    font-size: 16px;
+    margin-left: 10px;
+    filter: drop-shadow(0 0 5px $cyber-yellow);
+  }
+
+  .cyber-satisfaction-trend {
+    display: flex;
+    align-items: center;
+  }
+
+  .cyber-trend-value {
+    color: $cyber-green;
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .cyber-trend-up {
+    color: $cyber-green;
+    font-size: 22px;
+    margin-left: 10px;
+    filter: drop-shadow(0 0 5px $cyber-green);
+  }
+
+  .cyber-rating-bars {
+    .cyber-rating-item {
+      margin-bottom: 15px;
+      position: relative;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .cyber-rating-label {
+      display: flex;
+      align-items: center;
+      color: $cyber-text;
+      font-size: 12px;
+      margin-bottom: 5px;
+
+      .cyber-rating-star {
+        font-size: 12px;
+        margin-right: 5px;
+      }
+    }
+
+    .cyber-rating-amount {
+      color: $cyber-text;
+      font-size: 12px;
+      margin: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    .cyber-rating-progress {
+      margin-top: 10px;
+    }
+  }
+}
+
+/* Transactions Card */
+.cyber-transactions-card {
+  grid-column: span 8;
+
+  .cyber-transactions {
+    .cyber-table-container {
+      overflow-x: auto;
+    }
+
+    .cyber-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .cyber-table-header {
+      th {
+        color: $cyber-blue;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-size: 12px;
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid rgba($cyber-blue, 0.3);
+        background: rgba($cyber-blue, 0.1);
+      }
+    }
+
+    .cyber-table-row {
+      transition: all 0.3s ease;
+      border-bottom: 1px solid rgba($cyber-blue, 0.1);
+
+      &:hover {
+        background: rgba($cyber-blue, 0.05);
+      }
+
+      td {
+        padding: 15px;
+      }
+    }
+
+    .cyber-table-user {
+      display: flex;
+      align-items: center;
+    }
+
+    .cyber-user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba($cyber-blue, 0.3);
+      margin-right: 15px;
+    }
+
+    .cyber-user-info {
+      .cyber-user-name {
+        color: $cyber-text;
+        font-weight: 600;
+        font-size: 14px;
+        margin: 0 0 3px 0;
+      }
+
+      .cyber-user-role {
+        color: $cyber-text-muted;
+        font-size: 12px;
+        margin: 0;
+      }
+    }
+
+    .cyber-vehicle-model {
+      color: $cyber-text;
+      font-size: 14px;
+      margin: 0 0 3px 0;
+    }
+
+    .cyber-vehicle-type {
+      color: $cyber-text-muted;
+      font-size: 12px;
+      margin: 0;
+    }
+
+    .cyber-table-savings {
+      color: $cyber-green !important;
+      font-weight: 600;
+    }
+
+    .cyber-status-badge {
+      display: inline-block;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      border-radius: 0;
+      text-transform: uppercase;
+
+      &.bg-c-green {
+        background: rgba($cyber-green, 0.2) !important;
+        color: $cyber-green !important;
+        border: 1px solid rgba($cyber-green, 0.3);
+      }
+
+      &.bg-c-yellow {
+        background: rgba($cyber-yellow, 0.2) !important;
+        color: $cyber-yellow !important;
+        border: 1px solid rgba($cyber-yellow, 0.3);
+      }
+
+      &.bg-c-red {
+        background: rgba($cyber-pink, 0.2) !important;
+        color: $cyber-pink !important;
+        border: 1px solid rgba($cyber-pink, 0.3);
+      }
+    }
+
+    .cyber-table-actions {
+      display: flex;
+      gap: 10px;
+    }
+  }
+}
+
+/* Cyber Buttons */
+.cyber-btn {
+  border-radius: 0 !important;
+  font-weight: 600 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  padding: 8px 15px !important;
+  font-size: 12px !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+  border: none !important;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.cyber-btn-primary {
+  background: linear-gradient(90deg, rgba($cyber-pink, 0.7), rgba($cyber-blue, 0.7)) !important;
+  color: $cyber-text !important;
+  text-shadow: 0 0 5px rgba($cyber-blue, 0.5) !important;
+  box-shadow: 0 0 10px rgba($cyber-pink, 0.5),
+              0 0 20px rgba($cyber-blue, 0.3) !important;
+  
+  &:hover {
+    background: linear-gradient(90deg, rgba($cyber-pink, 0.9), rgba($cyber-blue, 0.9)) !important;
+    box-shadow: 0 0 15px rgba($cyber-pink, 0.7),
+                0 0 30px rgba($cyber-blue, 0.5) !important;
+  }
+}
+
+.cyber-btn-outline {
+  background: transparent !important;
+  color: $cyber-blue !important;
+  border: 1px solid $cyber-blue !important;
+  box-shadow: 0 0 10px rgba($cyber-blue, 0.3) !important;
+  
+  &:hover {
+    background: rgba($cyber-blue, 0.1) !important;
+    box-shadow: 0 0 15px rgba($cyber-blue, 0.5) !important;
+    color: lighten($cyber-blue, 15%) !important;
+  }
+}
+
+/* Cyber Progress Bars */
+.cyber-progress {
+  background-color: rgba($cyber-blue, 0.1) !important;
+  border-radius: 0 !important;
+  height: 6px !important;
+  
+  .progress-bar {
+    border-radius: 0 !important;
+  }
+
+  &.bg-c-blue .progress-bar {
+    background-color: $cyber-blue !important;
+    box-shadow: 0 0 10px $cyber-blue;
+  }
+
+  &.bg-c-green .progress-bar {
+    background-color: $cyber-green !important;
+    box-shadow: 0 0 10px $cyber-green;
+  }
+
+  &.bg-c-yellow .progress-bar {
+    background-color: $cyber-yellow !important;
+    box-shadow: 0 0 10px $cyber-yellow;
+  }
+
+  &.bg-c-red .progress-bar {
+    background-color: $cyber-pink !important;
+    box-shadow: 0 0 10px $cyber-pink;
+  }
+
+  &.bg-c-purple .progress-bar {
+    background-color: $cyber-purple !important;
+    box-shadow: 0 0 10px $cyber-purple;
+  }
+}
+
+/* Animations */
+@keyframes scanline {
+  0% { top: -10px; opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { top: 100%; opacity: 0.5; }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .cyber-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cyber-stat-card,
+  .cyber-map-card,
+  .cyber-savings-card,
+  .cyber-status-card,
+  .cyber-satisfaction-card,
+  .cyber-transactions-card {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .cyber-dashboard {
+    padding: 10px;
+  }
+
+  .cyber-status-progress {
+    grid-template-columns: 1fr !important;
+  }
+}

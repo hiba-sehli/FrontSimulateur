@@ -1,0 +1,73 @@
+// Variables spécifiques au thème cyberpunk
+$yiq-light-color: #ffffff; // Blanc pur pour un meilleur contraste néon
+$yiq-dark-color: #0d0221;  // Noir cyberpunk profond
+$yiq-contrasted-threshold: 180; // Seuil augmenté pour mieux fonctionner avec les couleurs néon
+$theme-color-interval: 12%; // Intervalle plus serré pour des dégradés plus précis
+
+// Fonction color-yiq optimisée pour le cyberpunk
+@function color-yiq($color) {
+  $r: red($color);
+  $g: green($color);
+  $b: blue($color);
+  
+  // Formule YIQ modifiée pour mieux fonctionner avec les couleurs néon
+  $yiq: calc((($r * 299) + ($g * 587) + ($b * 114)) / 1000);
+  
+  // Adaptation spéciale pour les couleurs néon
+  @if (lightness($color) > 70%) {
+    @return $yiq-dark-color; // Toujours sombre sur les couleurs très claires
+  }
+  @if (saturation($color) > 80% and lightness($color) > 40%) {
+    @return $yiq-dark-color; // Couleurs saturées et claires -> texte sombre
+  }
+  
+  @if ($yiq >= $yiq-contrasted-threshold) {
+    @return $yiq-dark-color;
+  } @else {
+    @return $yiq-light-color;
+  }
+}
+
+// Fonction theme-color avec vérification de sécurité
+@function theme-color($key: 'primary') {
+  @if not map-has-key($theme-colors, $key) {
+    @warn "La couleur `#{$key}` n'existe pas dans $theme-colors.";
+    @return map-get($theme-colors, 'primary'); // Retourne la couleur primaire par défaut
+  }
+  @return map-get($theme-colors, $key);
+}
+
+// Fonction theme-color-level adaptée pour les effets néon
+@function theme-color-level($color-name: 'primary', $level: 0) {
+  $color: theme-color($color-name);
+  
+  // Adaptation spéciale pour le style cyberpunk
+  @if ($level > 0) {
+    // Niveaux positifs : mélange avec du blanc pour éclaircir
+    @return mix(#ffffff, $color, $level * $theme-color-interval);
+  } @else {
+    // Niveaux négatifs : mélange avec le fond sombre pour assombrir
+    $dark-mix: mix($yiq-dark-color, $color, abs($level) * $theme-color-interval);
+    
+    // Pour les couleurs sombres, on garde une saturation élevée
+    @return adjust-color($dark-mix, $saturation: 10%);
+  }
+}
+
+// Fonction supplémentaire pour générer des effets de lueur
+@function neon-glow($color, $intensity: 1) {
+  @return rgba($color, $intensity * 0.3);
+}
+
+// Fonction pour créer des dégradés cyberpunk
+@function cyber-gradient($color, $angle: 135deg) {
+  $light-color: theme-color-level($color, 2);
+  $dark-color: theme-color-level($color, -2);
+  
+  @return linear-gradient(
+    $angle,
+    adjust-color($light-color, $lightness: 10%),
+    $color,
+    adjust-color($dark-color, $saturation: 15%)
+  );
+}
